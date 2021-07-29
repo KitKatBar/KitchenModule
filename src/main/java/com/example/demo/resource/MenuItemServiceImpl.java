@@ -1,5 +1,6 @@
 package com.example.demo.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,9 +24,8 @@ public class MenuItemServiceImpl {
 	}
 	
 	public void saveMenuItem(Long id, MenuItem m) {
-		Kitchen k = new Kitchen();
-		k.setId(id);
-		kRepo.findById(id).get().getMenu().add(m);
+		Kitchen k = kRepo.findById(id).get();
+		//kRepo.findById(id).get().getMenu().add(m);
 		kRepo.save(k);
 	}
 	

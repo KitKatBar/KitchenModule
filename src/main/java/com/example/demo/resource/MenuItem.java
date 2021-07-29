@@ -29,8 +29,8 @@ public class MenuItem implements Serializable {
 	@NotNull
 	@Size(min = 1, max = 50)
 	private String itemName;
-	
-	@AssertTrue
+
+	@NotNull
 	private boolean veg;
 	
 	@NotNull
@@ -40,7 +40,7 @@ public class MenuItem implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "kitchen_id", nullable = false)
 	private Kitchen kitchen;
-
+	
 	public Long getId() {
 		return id;
 	}

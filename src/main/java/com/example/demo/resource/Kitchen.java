@@ -112,6 +112,16 @@ public class Kitchen implements Serializable {
 		this.workingDays = workingDays;
 	}
 	*/
+    
+    public void addMenuItem(MenuItem item) {
+    	if (item != null) {
+    		if (menu == null)
+    			menu = new ArrayList<MenuItem>();
+    		item.setKitchen(this);
+    		menu.add(item);
+    	}
+    }
+    
 	public List<MenuItem> getMenu() {
 		return menu;
 	}
