@@ -69,9 +69,9 @@ public class MenuItemController {
 		//System.out.println("before model ID: " + menu.getId());
 		model.addAttribute("menu", menu);
 		//System.out.println("after model ID: " + menu.getId());
-		System.out.println("Name: " + kitchen.getName());
-		System.out.println("Email: " + kitchen.getEmail());
-		System.out.println("Password: " + kitchen.getPassword());
+		//System.out.println("Name: " + kitchen.getName());
+		//System.out.println("Email: " + kitchen.getEmail());
+		//System.out.println("Password: " + kitchen.getPassword());
 		return "kitchen_register_form_menu_add_item";
 	}
 	
