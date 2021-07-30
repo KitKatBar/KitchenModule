@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 //@Transactional
@@ -27,6 +28,19 @@ public class MenuItemController {
 	
 	@Autowired
 	MenuItemServiceImpl mService;
+	
+	@Autowired
+	KitchenServiceImpl kService;
+	
+	@ModelAttribute("kitchen")
+	public Kitchen kitchen(RedirectAttributes redirectAttributes, Model model) {
+		System.out.println("made it in here");
+		Kitchen k = (Kitchen) redirectAttributes.getAttribute("login");
+		System.out.println("retrieved redirect");
+		//model.addAttribute("kitchen", k);
+		//System.out.println("added model");
+		return k;
+	}
 	
 	@GetMapping("/edit_menu")
 	public String editMenu(@ModelAttribute("kitchen") Kitchen kitchen, Model model) {

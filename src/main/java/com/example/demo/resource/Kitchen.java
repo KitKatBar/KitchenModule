@@ -131,6 +131,22 @@ public class Kitchen implements Serializable {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		if(o == this) { return true; }
+		if(!(o instanceof Kitchen)) { return false; }
+		Kitchen k = (Kitchen) o;
+		if (k.getName() == null) {
+			return email.equalsIgnoreCase(k.getEmail())
+				&& password.equalsIgnoreCase(k.getPassword());
+		}
+		else {
+			return name.equalsIgnoreCase(k.getName())
+				&& email.equalsIgnoreCase(k.getEmail())
+				&& password.equalsIgnoreCase(k.getPassword());
+		}
+	}
+	
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Name: " + name + ", Email: " + email + ", Menu: [");

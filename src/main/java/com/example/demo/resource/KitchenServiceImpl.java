@@ -1,5 +1,7 @@
 package com.example.demo.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,10 @@ public class KitchenServiceImpl {
 
 	@Autowired
 	KitchenRepo kRepo;
+	
+	public List<Kitchen> getKitchenList() {
+		return kRepo.findAll();
+	}
 	
 	public Kitchen findKitchen(Long id) {
 		return kRepo.findById(id).get();
