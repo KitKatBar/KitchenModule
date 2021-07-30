@@ -14,9 +14,9 @@
 		<td><a th:href="@{/list_items/{id}(id=${menu.id})}" th:text ="${menu.itemName}"></a></td>
 
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<td> <a th:href="@{/delete_item/{id}(id=${menu.id})}"><button type="button">Edit Item</button></a>
+		<td> <a th:href="@{/edit_item/{id}(id=${menu.id})}"><button type="button">Edit Item</button></a>
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<td> <a th:href="@{/edit_item/{id}(id=${menu.id})}"><button type="button">Delete Item</button></a>
+		<td> <a th:href="@{/delete_item/{id}(id=${menu.id})}"><button type="button">Delete Item</button></a>
 		</tr>
 		</table>
 		<a href="/register-page=2"><button type="button">Go Back</button></a>

@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 public class Kitchen implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(unique = true)
@@ -128,5 +128,17 @@ public class Kitchen implements Serializable {
 
 	public void setMenu(List<MenuItem> menu) {
 		this.menu = menu;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Name: " + name + ", Email: " + email + ", Menu: [");
+		for (int i = 0; i < menu.size(); i++) {
+			sb.append("Item Name: " + menu.get(i).getItemName() + ", ");
+			sb.append("Veg: " + menu.get(i).isVeg() + ", ");
+			sb.append("Price: " + menu.get(i).getPrice() + "]");
+		}
+		return sb.toString();
 	}
 }

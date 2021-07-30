@@ -22,10 +22,10 @@ import javax.validation.constraints.Size;
 public class MenuItem implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
+	//@Column(unique = true)
 	@NotNull
 	@Size(min = 1, max = 50)
 	private String itemName;
@@ -79,5 +79,20 @@ public class MenuItem implements Serializable {
 
 	public void setKitchen(Kitchen kitchen) {
 		this.kitchen = kitchen;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == this) { return true; }
+		if(!(o instanceof MenuItem)) { return false; }
+		MenuItem m = (MenuItem) o;
+		return itemName.equalsIgnoreCase(m.getItemName())
+				&& veg == m.isVeg()
+				&& Double.compare(price, m.getPrice()) == 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "Item Name: " + itemName + ", Veg: " + veg + ", Price: " + price;
 	}
 }
