@@ -7,7 +7,7 @@
 <body>
 	
 	<h1>Kitchen Registration Page 1</h1>
-		<form th:action="@{/register-page=1}" th:object="${kitchen}" method="post">
+		<form th:action="@{/register-page=1}" th:object="${kitchen_dto}" method="post">
 
 			<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
 				th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation

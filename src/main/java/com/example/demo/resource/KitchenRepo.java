@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KitchenRepo extends JpaRepository<Kitchen, Long> {
-
+	Kitchen findByEmail(String email);
 }
