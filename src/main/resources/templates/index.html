@@ -4,16 +4,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Index</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/header.css}" />
 </head>
 <body>
+	<div class="topnav">
+		<a class="active" th:href="@{/login}">Login</a> <a
+			th:href="@{/kitchen_registration}">Kitchen Registration</a>
+	</div>
 	<div th:if="${param.success}">
 		<div class="alert alert-info">You've successfully registered!</div>
 	</div>
 	<div th:if="${param.logout}">
 		<div class="alert alert-info">You have been logged out.</div>
 	</div>
-<span>Already registered? <a href="/" th:href="@{/login}">Login here!</a></span>
-<a href="/register-page=1"><button type="button">Provide Register Now</button></a>
 	<table>
 		<tr>Kitchen Name</tr>
 		</tr>

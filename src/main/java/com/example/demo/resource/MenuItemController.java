@@ -59,7 +59,7 @@ public class MenuItemController {
 		//System.out.println("Name: " + kitchen.getName());
 		//System.out.println("Email: " + kitchen.getEmail());
 		//System.out.println("Password: " + kitchen.getPassword());
-		return "kitchen_register_form_menu";
+		return "kitchen_settings_menu_edit";
 	}
 	
 	@GetMapping("/add_menu_item")
@@ -72,7 +72,7 @@ public class MenuItemController {
 		//System.out.println("Name: " + kitchen.getName());
 		//System.out.println("Email: " + kitchen.getEmail());
 		//System.out.println("Password: " + kitchen.getPassword());
-		return "kitchen_register_form_menu_add_item";
+		return "kitchen_settings_menu_add_item";
 	}
 	
 	@PostMapping("/add_menu_item")
@@ -84,26 +84,26 @@ public class MenuItemController {
 		//System.out.println("Password: " + kitchen.getPassword());
 		//System.out.println("error in savemenu");
 		if (bindingResult.hasErrors())
-			return "kitchen_register_form_menu_add_item";
+			return "kitchen_settings_menu_add_item";
 		else {
-			System.out.println("error in savemenu save");
+			//System.out.println("error in savemenu save");
 			//mService.saveMenuItem(kitchen.getId(), menu);
 			//List<MenuItem> temp = new ArrayList<MenuItem>();
 			//temp = kitchen.getMenu();
 			//temp.add(menu);
 			//kitchen.setMenu(temp);
-			System.out.println("k_id before all: " + kitchen.getId());
+			//System.out.println("k_id before all: " + kitchen.getId());
 			//if (kitchen.getMenu() != null)
 				//kitchen.getMenu().clear();
-			System.out.println("k_id after clear: " + kitchen.getId());
+			//System.out.println("k_id after clear: " + kitchen.getId());
 			kitchen.addMenuItem(menu);
 			//System.out.println("k_id after object method: " + kitchen.getId());
 			mService.saveMenuItem(kitchen);
 			//System.out.println("k_id after service: " + kitchen.getId());
 			//System.out.println("ID: " + menu.getId());
-			System.out.println("Item Name: " + menu.getItemName());
-			System.out.println("Veg: " + menu.isVeg());
-			System.out.println("Price: " + menu.getPrice());
+			//System.out.println("Item Name: " + menu.getItemName());
+			//System.out.println("Veg: " + menu.isVeg());
+			//System.out.println("Price: " + menu.getPrice());
 			//kitchen.getMenu().add(menu);
 			//System.out.println("error in savemenu redirect");
 			return "redirect:/edit_menu";
@@ -116,13 +116,34 @@ public class MenuItemController {
 	public String listMenuItems(@ModelAttribute("kitchen") Kitchen k, Model model) {
 		List<MenuItem> list = mService.findMenu(k);
 		model.addAttribute("items", list);
+		System.out.println("list items is used?");
 		return "kitchen_registration_form_2";
+	}
+	
+	@GetMapping("/view_menu")
+	public String viewMenu(@ModelAttribute("kitchen") Kitchen kitchen, Model model) {
+		//MenuItem menu = new MenuItem();
+		//model.addAttribute("menu", menu);
+		//Kitchen k = (Kitchen) model.getAttribute("kitchen");
+		//System.out.println("k_id using model: " + k.getId());
+		//System.out.println("k_id in edit_menu: " + kitchen.getId());
+		//System.out.println("Name: " + kitchen.getName());
+		//System.out.println("Email: " + kitchen.getEmail());
+		//System.out.println("Password: " + kitchen.getPassword());
+		List<MenuItem> list = mService.findMenu(kitchen);
+		kitchen.setMenu(list);
+		model.addAttribute("items", list);
+		//System.out.println("k_id in edit_menu: " + kitchen.getId());
+		//System.out.println("Name: " + kitchen.getName());
+		//System.out.println("Email: " + kitchen.getEmail());
+		//System.out.println("Password: " + kitchen.getPassword());
+		return "kitchen_settings_menu_view";
 	}
 	
 	@RequestMapping("/edit_item/{id}")
 	public ModelAndView edit(Model model, @PathVariable(name="id") Long id) {
 		Kitchen k = (Kitchen) model.getAttribute("kitchen");
-		ModelAndView mav = new ModelAndView("kitchen_register_form_menu_edit_item");
+		ModelAndView mav = new ModelAndView("kitchen_settings_menu_edit_item");
 		MenuItem m = mService.findMenuItem(k, id);
 		System.out.println("item being edit: " + m.toString());
 		mav.addObject("menu", m);
@@ -130,12 +151,13 @@ public class MenuItemController {
 	}
 	
 	@RequestMapping(value="/save", method = RequestMethod.POST)
-	public String save(Model model, @Valid @ModelAttribute("menu") MenuItem m, BindingResult br) {
+	public String save(Model model, @Valid @ModelAttribute("menu") MenuItem m,
+			BindingResult bindingResult) {
 		Kitchen k = (Kitchen) model.getAttribute("kitchen");
-		if (br.hasErrors())
-			return "kitchen_register_form_menu_edit_item";
+		if (bindingResult.hasErrors())
+			return "kitchen_settings_menu_edit_item";
 		else {
-			mService.saveMenuItem(k.getId(), m);
+			mService.editMenuItem(k, m);
 			return "redirect:/edit_menu";
 		}
 	}
@@ -143,10 +165,14 @@ public class MenuItemController {
 	@RequestMapping("/delete_item/{id}")
 	public String delete(Model model, @PathVariable(name="id") Long id) {
 		Kitchen k = (Kitchen) model.getAttribute("kitchen");
-		System.out.println("k_id is: " + k.getId());
-		System.out.println("m_id is: " + id);
-		System.out.println("menu items: " + k.getMenu().toString());
-		mService.deleteMenuItem(k.getId(), id);
+		//System.out.println("k_id is: " + k.getId());
+		//System.out.println("m_id is: " + id);
+		//System.out.println("menu items: " + k.getMenu().toString());
+		//MenuItem m = mService.findMenuItem(k, id);
+		//k.deleteMenuItem(m);
+		//mService.saveMenuItem(k);
+		mService.deleteMenuItem(k, id);
+		//mService.deleteMenuItem(k.getId(), id);
 		return "redirect:/edit_menu";
 	}
 }

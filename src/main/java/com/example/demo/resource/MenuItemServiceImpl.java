@@ -34,12 +34,12 @@ public class MenuItemServiceImpl {
 	}
 	
 	@Transactional
-	public void saveMenuItem(Long id, MenuItem m) {
-		Kitchen k = kRepo.findById(id).get();
+	public void editMenuItem(Kitchen k, MenuItem m) {
+		//Kitchen k = kRepo.findById(id).get();
 		//System.out.println("menu id: " + m.getId());
-		//System.out.println("menu contents: " + m.toString());
+		System.out.println("menu contents: " + m.toString());
 		for (int i = 0; i < k.getMenu().size(); i++) {
-			if (k.getMenu().get(i).equals(m)) {
+			if (k.getMenu().get(i).getId().equals(m.getId())) {
 				k.getMenu().get(i).setItemName(m.getItemName());
 				k.getMenu().get(i).setVeg(m.isVeg());
 				k.getMenu().get(i).setPrice(m.getPrice());
@@ -51,23 +51,25 @@ public class MenuItemServiceImpl {
 	}
 	
 	@Transactional
-	public void deleteMenuItem(Long k_id, Long m_id) {
+	public void deleteMenuItem(Kitchen k, Long m_id) {
 		//System.out.println("check kitchen ID: " + k_id);
-		Kitchen k = kRepo.getById(k_id);
-		//System.out.println("i made it here");
-		//System.out.println("size is: " + k.getMenu().size());
-		//System.out.println("id is: " + k.getMenu().get(0).getId());
-		//System.out.println("name is: " + k.getMenu().get(0).getItemName());
-		//System.out.println("veg is: " + k.getMenu().get(0).isVeg());
-		//System.out.println("price is: " + k.getMenu().get(0).getPrice());
+		//Kitchen k = kRepo.getById(k_id);
+		System.out.println("i made it here");
+		System.out.println("check kitchen ID: " + k.getId());
+		System.out.println("size is: " + k.getMenu().size());
+		System.out.println("id is: " + k.getMenu().get(0).getId());
+		System.out.println("name is: " + k.getMenu().get(0).getItemName());
+		System.out.println("veg is: " + k.getMenu().get(0).isVeg());
+		System.out.println("price is: " + k.getMenu().get(0).getPrice());
 		for (int i = 0; i < k.getMenu().size(); i++) {
 			if (k.getMenu().get(i).getId().equals(m_id)) {
-				//System.out.println("i'm in if statement");
-				k.getMenu().remove(i);
-				//System.out.println("size after remove: " + k.getMenu().size());
-				//System.out.println("i removed item");
+				System.out.println("i'm in if statement");
+				k.deleteMenuItem(k.getMenu().get(i));
+				//k.getMenu().remove(i);
+				System.out.println("size after remove: " + k.getMenu().size());
+				System.out.println("i removed item");
 				kRepo.save(k);
-				//System.out.println("i updated repo");
+				System.out.println("i updated repo");
 				break;
 			}
 		}

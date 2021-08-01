@@ -34,13 +34,15 @@ public class KitchenController {
 		return new Kitchen();
 	}
 	
-	@ModelAttribute("kitchen_dto")
+	/*@ModelAttribute("kitchen_dto")
 	public KitchenRegistrationDto kitchenDto() {
 		return new KitchenRegistrationDto();
-	}
+	}*/
 	
-	@GetMapping("/register-page=1")
-	public String showForm(@ModelAttribute("kitchen_dto") KitchenRegistrationDto kitchenDto) {
+	@GetMapping("/kitchen_registration")
+	public String showForm(Model model) {
+		KitchenRegistrationDto dto = new KitchenRegistrationDto();
+		model.addAttribute("kitchen_dto", dto);
 		/*Kitchen k = new Kitchen();
 		List<Kitchen> list = kService.getKitchenList();
 		for (int i = 0; i < list.size(); i++) {
@@ -55,15 +57,15 @@ public class KitchenController {
 		//kitchen.setId(kService.getKitchenId(kitchen));
 		//System.out.println("id in page 1: " + k.getId());
 		//System.out.println("id in page 1: " + kitchen.getId());
-		return "kitchen_register_form_1";
+		return "kitchen_registration_form";
 	}
 	
-	@PostMapping("/register-page=1")
+	@PostMapping("/kitchen_registration")
 	public String submitForm(@Valid @ModelAttribute("kitchen_dto") KitchenRegistrationDto kitchenDto,
-			Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		
 		if (bindingResult.hasErrors())
-			return "kitchen_register_form_1";
+			return "kitchen_registration_form";
 		else {
 			kService.save(kitchenDto);
 			Kitchen k = new Kitchen();
@@ -80,11 +82,11 @@ public class KitchenController {
 			//model.addAttribute("kitchen", k);
 			redirectAttributes.addFlashAttribute("kitchen", k);
 			}
-			return "redirect:/register-page=2";
+			return "redirect:/?success";
 		}
 	}
 	
-	@GetMapping("/register-page=2")
+	@GetMapping("/kitchen_settings")
 	public String showForm2(Principal principal, Model model) {
 		String email = principal.getName();
 		//System.out.println("email is: " + email);
@@ -110,27 +112,27 @@ public class KitchenController {
 		//System.out.println("Name: " + k.getName());
 		//System.out.println("Email: " + k.getEmail());
 		//System.out.println("Password: " + k.getPassword());
-		return "kitchen_register_form_2";
+		return "kitchen_settings_hours";
 	}
 	
-	@PostMapping("/register-page=2")
+	@PostMapping("/kitchen_settings")
 	public String submitForm2(@ModelAttribute("kitchen") Kitchen kitchen, SessionStatus status,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		//Kitchen kitchen = (Kitchen) model.getAttribute("kitchen");
 		//redirectAttributes.addFlashAttribute("kitchen", kitchen);
 		if (bindingResult.hasErrors())
-			return "kitchen_register_form_2";
+			return "kitchen_settings_hours";
 		else {
 			//kService.saveKitchen(kitchen);
 			//redirectAttributes.addFlashAttribute("kitchen", kitchen);
-			System.out.println("id before pass: " + kitchen.getId());
+			//System.out.println("id before pass: " + kitchen.getId());
 			//System.out.println("Name: " + kitchen.getName());
 			//System.out.println("Email: " + kitchen.getEmail());
 			//System.out.println("Password: " + kitchen.getPassword());
 			//request.getSession().setAttribute("kitchen", null);
 			//request.removeAttribute("kitchen", WebRequest.SCOPE_SESSION);
 			//status.setComplete();
-			return "redirect:/register-page=2?saved";
+			return "redirect:/kitchen_settings?saved";
 		}
 	}
 }

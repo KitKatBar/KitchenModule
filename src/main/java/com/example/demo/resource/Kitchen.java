@@ -56,7 +56,7 @@ public class Kitchen implements Serializable {
 	
 	//private List<Boolean> workingDays; // for storing days of the week
 
-	@OneToMany(mappedBy = "kitchen", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "kitchen", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MenuItem> menu;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -136,6 +136,11 @@ public class Kitchen implements Serializable {
     		item.setKitchen(this);
     		menu.add(item);
     	}
+    }
+    
+    public void deleteMenuItem(MenuItem item) {
+    	menu.remove(item);
+    	item.setKitchen(null);
     }
     
 	public List<MenuItem> getMenu() {

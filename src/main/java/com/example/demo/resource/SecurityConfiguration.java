@@ -25,16 +25,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	  			.authorizeRequests()
 	  					.antMatchers(
 	  							"/",
-	  							"/register-page=1",
+	  							"/kitchen_registration",
 	  							"/registration**",
-	  							"/js",
-	  							"/css",
-	  							"/img",
+	  							"/js/**",
+	  							"/css/**",
+	  							"/img/**",
 	  							"/webjars/**").permitAll()
 	  						.anyRequest().authenticated()
 	  				.and()
 	  					.formLogin()
-	  						.defaultSuccessUrl("/register-page=2")
+	  						.defaultSuccessUrl("/kitchen_settings")
 	  						.loginPage("/login")
 	  							.permitAll()
 	  				.and()

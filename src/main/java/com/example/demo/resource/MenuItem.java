@@ -38,7 +38,7 @@ public class MenuItem implements Serializable {
 	private double price;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "kitchen_id", nullable = false)
+	@JoinColumn(name = "kitchen_id")
 	private Kitchen kitchen;
 	
 	public Long getId() {
